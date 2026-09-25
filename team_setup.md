@@ -302,3 +302,17 @@ Then:
 - Do not commit `.venv`, `node_modules`, or `.env` files.
 - Never commit passwords, API keys, or other sensitive information.
 - Each team member should maintain their own local development environment.
+
+---
+
+## Updates
+
+### 12 September 2026
+- Set up PostgreSQL 18.6 and created `intellishield` database.
+- Configured and tested SQLAlchemy database connection.
+- Added initial User model.
+- Pushed changes to `docs/backend-readme`.
+
+### Next
+- Implement User registration and password hashing.
+- Implement login and JWT authentication.
