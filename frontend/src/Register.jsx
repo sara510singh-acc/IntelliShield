@@ -2,11 +2,13 @@ import { useState } from 'react'
 import './App.css'
 
 const initialForm = {
-	fullName: '',
+	username: '',
 	email: '',
 	password: '',
 	confirmPassword: '',
 }
+
+const API_URL = 'http://localhost:8000/auth/register'
 
 function Register() {
 	const [form, setForm] = useState(initialForm)
@@ -20,10 +22,10 @@ function Register() {
 		setSubmitted(false)
 	}
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault()
 
-		if (!form.fullName.trim() || !form.email.trim() || !form.password || !form.confirmPassword) {
+		if (!form.username.trim() || !form.email.trim() || !form.password || !form.confirmPassword) {
 			setError('Please complete all fields.')
 			return
 		}
@@ -38,8 +40,32 @@ function Register() {
 			return
 		}
 
-		setError('')
-		setSubmitted(true)
+		try {
+			const response = await fetch(API_URL, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: form.username.trim(),
+					email: form.email.trim(),
+					password: form.password,
+				}),
+			})
+
+			const data = await response.json().catch(() => ({}))
+
+			if (!response.ok) {
+				throw new Error(data.detail || 'Registration failed.')
+			}
+
+			setError('')
+			setSubmitted(true)
+			setForm(initialForm)
+		} catch (err) {
+			setSubmitted(false)
+			setError(err.message || 'Something went wrong while registering.')
+		}
 	}
 
 	return (
@@ -53,13 +79,13 @@ function Register() {
 				{submitted ? (
 					<div className="success-message" role="status">
 						<strong>Registration details received.</strong>
-						<span>Your account setup can continue once the backend is connected.</span>
+						<span>Your account has been created successfully.</span>
 					</div>
 				) : (
 					<form className="registration-form" onSubmit={handleSubmit} noValidate>
-						<label htmlFor="fullName">Full name</label>
-						<input id="fullName" name="fullName" onChange={handleChange} placeholder="Alex Morgan" value={form.fullName} />
-
+						
+						<label htmlFor="username">Username</label>
+						<input id="username" name="username" onChange={handleChange} placeholder="Alex Johnson" type="text" value={form.username} />
 						<label htmlFor="email">Work email</label>
 						<input id="email" name="email" onChange={handleChange} placeholder="alex@company.com" type="email" value={form.email} />
 
