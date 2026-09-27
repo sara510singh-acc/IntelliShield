@@ -313,6 +313,14 @@ Then:
 - Added initial User model.
 - Pushed changes to `docs/backend-readme`.
 
+### 2026-09-25
+- Connected the FastAPI backend to the shared Supabase PostgreSQL database using the Session Pooler.
+- Verified the backend starts successfully with the Supabase database connection.
+- Refactored the registration page into `frontend/src/Register.jsx`.
+- Added the SQLAlchemy `User` model in `backend/app/models/user.py` with `id`, `full_name`, `email`, and `password_hash`.
+- Separated database models from Pydantic schemas.
+- Next: create the registration schema and implement the `/auth/register` API.
+
 ### Next
 - Implement User registration and password hashing.
 - Implement login and JWT authentication.
