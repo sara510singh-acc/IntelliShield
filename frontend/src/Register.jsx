@@ -9,6 +9,8 @@ const initialForm = {
   confirmPassword: '',
 }
 
+const API_URL = 'http://localhost:8000/auth/register'
+
 function Register() {
   const [form, setForm] = useState(initialForm)
   const [error, setError] = useState('')
