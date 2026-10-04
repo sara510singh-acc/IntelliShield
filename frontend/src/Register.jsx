@@ -9,9 +9,7 @@ const initialForm = {
   confirmPassword: '',
 }
 
-const API_URL = 'http://localhost:8000/auth/register'
-
-function Register() {
+function Register({ onNavigate })  {
   const [form, setForm] = useState(initialForm)
   const [error, setError] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -229,6 +227,13 @@ function Register() {
         <p className="privacy-note">
           By creating an account, you agree to IntelliShield&apos;s terms and
           privacy policy.
+        </p>
+
+        <p className="privacy-note sign-in-prompt">
+          Already have an account?{' '}
+          <button type="button" className="text-link-button inline-link-button" onClick={() => onNavigate('login')}>
+            Sign in
+          </button>
         </p>
       </section>
 

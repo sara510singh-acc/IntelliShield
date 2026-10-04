@@ -227,6 +227,55 @@ h1 {
   line-height: 1.8;
 }
 
+.login-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -8px 0 18px;
+}
+
+.remember-device {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #526b5e;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.remember-device input {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: var(--teal);
+}
+
+.text-link-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: var(--teal);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.text-link-button:hover {
+  text-decoration: underline;
+}
+
+.inline-link-button {
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.sign-in-prompt {
+  margin-top: 16px;
+  text-align: center;
+}
+
 /* Success state */
 
 .success-message {
@@ -262,19 +311,21 @@ h1 {
   padding: clamp(28px, 5vw, 64px);
   overflow: hidden;
   border-left: 1px solid #e7eee9;
-  background: #f4f8f5;
+  background:
+    radial-gradient(circle at top left, rgba(8, 123, 112, 0.14), transparent 34%),
+    linear-gradient(180deg, #f6faf7 0%, #edf5f1 100%);
 }
 
 .aside-content {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 350px;
+  max-width: 370px;
   margin: auto;
 }
 
 .registration-aside .eyebrow {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
   color: #6b8d7e;
 }
 
@@ -282,27 +333,44 @@ h1 {
   margin: 0;
   color: #243b32;
   font-size: clamp(27px, 3vw, 36px);
-  line-height: 1.3;
-  letter-spacing: -1.2px;
+  line-height: 1.25;
+  letter-spacing: -1.1px;
 }
 
-.registration-aside p:not(.eyebrow) {
+.aside-intro {
   max-width: 320px;
-  margin: 17px 0 0;
-  color: #74857c;
+  margin: 16px 0 0;
+  color: #63766c;
   font-size: 12px;
   line-height: 1.9;
 }
 
-.signal-summary {
-  display: flex;
+.aside-callout {
+  display: grid;
+  gap: 8px;
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid rgba(8, 123, 112, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.callout-row {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 36px;
-  padding-top: 18px;
-  border-top: 1px solid #dfe9e2;
-  color: #526b5e;
+  color: #44605a;
   font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.aside-callout strong {
+  color: #1d2d2a;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -0.06em;
 }
 
 .signal-dot {
@@ -311,6 +379,7 @@ h1 {
   flex-shrink: 0;
   border-radius: 50%;
   background: #329a76;
+  box-shadow: 0 0 0 4px rgba(50, 154, 118, 0.12);
 }
 
 /* Responsive */
