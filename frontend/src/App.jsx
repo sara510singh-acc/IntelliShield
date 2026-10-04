@@ -1,7 +1,15 @@
+import { useState } from 'react'
+import Login from './Login.jsx'
 import Register from './Register.jsx'
 
 function App() {
-	return <Register />
+  const [page, setPage] = useState('login')
+
+  if (page === 'register') {
+    return <Register onNavigate={setPage} />
+  }
+
+  return <Login onNavigate={setPage} />
 }
 
 export default App
