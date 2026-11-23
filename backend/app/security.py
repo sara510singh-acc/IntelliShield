@@ -1,5 +1,6 @@
-import secrets
+from datetime import datetime, timedelta, timezone
 
+import jwt
 import bcrypt
 
 from app.config import settings
@@ -51,14 +52,32 @@ def assess_login_risk(
     return risk_score, risk_level, requires_mfa
 
 
-def create_access_token(user_id: int, email: str, risk_score: int, risk_level: str) -> str:
+def create_access_token(
+    user_id: int,
+    email: str,
+    risk_score: int,
+    risk_level: str,
+) -> str:
+    now = datetime.now(timezone.utc)
+
     payload = {
         "sub": str(user_id),
         "email": email,
         "risk_score": risk_score,
         "risk_level": risk_level,
+        "iat": now,
+        "exp": now + timedelta(minutes=30),
     }
-    token_seed = (
-        f"{settings.secret_key}:{user_id}:{email}:{risk_level}:{risk_score}:{secrets.token_urlsafe(16)}"
+
+    return jwt.encode(
+        payload,
+        settings.secret_key,
+        algorithm="HS256",
     )
-    return f"intellishield.{payload['sub']}.{secrets.token_urlsafe(24)}.{token_seed[:32]}"
+
+def verify_access_token(token: str) -> dict:
+    return jwt.decode(
+        token,
+        settings.secret_key,
+        algorithms=["HS256"],
+    )
